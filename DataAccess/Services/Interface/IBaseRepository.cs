@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Entities.Abstract;
 
 namespace DataAccess.Services.Interface
 {
-    internal interface IBaseRepository
+    public interface IBaseRepository<T> where T : BaseEntity
     {
     }
 }
