@@ -1,5 +1,8 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
 using DataAccess.Context;
 using Microsoft.EntityFrameworkCore;
+using WEB.Autofac;
 
 namespace WEB
 {
@@ -8,6 +11,12 @@ namespace WEB
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                        .ConfigureContainer<ContainerBuilder>(builder =>
+                        {
+                            builder.RegisterModule(new AutofacBusinessModule());
+                        });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
