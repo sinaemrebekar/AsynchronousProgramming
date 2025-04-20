@@ -1,7 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using DataAccess.Context;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 using WEB.Autofac;
 
 namespace WEB
@@ -19,8 +22,12 @@ namespace WEB
                         });
 
             // Add services to the container.
-            builder.Services.AddControllersWithViews();
+            builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            builder.Services.AddFluentValidationAutoValidation();
+            builder.Services.AddFluentValidationClientsideAdapters();
 
+            builder.Services.AddControllersWithViews();
+            
             var sqlConnection = builder.Configuration.GetConnectionString("SqlConnection");
             builder.Services.AddDbContext<AppDbContext>(options =>
             {

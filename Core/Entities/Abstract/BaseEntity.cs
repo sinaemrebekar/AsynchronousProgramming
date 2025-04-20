@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Core.Entities.Abstract
 {
-    public enum Status { Active = 1, Modified, Passive }
+    public enum Status 
+    {
+        [Display(Name = "Aktif")]
+        Active = 1, 
+        [Display(Name = "Güncellenmiş")]
+        Modified,
+        Passive
+    }
     public abstract class BaseEntity
     {
         private DateTime _createdDate = DateTime.Now;
